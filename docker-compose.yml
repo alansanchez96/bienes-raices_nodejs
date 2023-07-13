@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+
+  bienesraices_db:
+    image: mysql:5.7
+    container_name: bienesraices_db
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
+      - MYSQL_DATABASE=$DB_DATABASE
+      - MYSQL_USER=$DB_USER
+      - MYSQL_PASSWORD=$DB_PASSWORD
+    volumes:
+      - bienesraices_db:/var/lib/mysql
+
+volumes:
+  bienesraices_db:
+
+networks:
+  bienesraices_network:
+    name: bienesraices_net
+    driver: bridge
+    ipam:
+      driver: default
