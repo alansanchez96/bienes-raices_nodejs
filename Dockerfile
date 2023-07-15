@@ -11,7 +11,7 @@ COPY . .
 RUN apk update && \
     apk add --no-cache supervisor
 
-RUN mkdir -p /var/log/supervisor
+RUN mkdir -p /superlog
 
 COPY ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
