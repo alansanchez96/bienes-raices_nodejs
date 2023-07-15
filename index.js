@@ -5,8 +5,11 @@ import dotenv from './config/dotenv.js';
 
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+
 try {
     await db.authenticate();
+    db.sync();
     console.log('conection ok');
 } catch (error) {
     console.log(error)
