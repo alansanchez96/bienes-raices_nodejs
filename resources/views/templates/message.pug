@@ -6,11 +6,13 @@ block content
             span.font-normal Raices
         h2.text-center.text-2xl.font-extrabold= title
 
-        if error
-            p.text-xl.font-bold.text-center.my-10.text-red-600= error
-        else 
-            p.text-xl.font-bold.text-center.my-10.text-green-600= message
+        .mt-8.mx-auto.max-w-lg
+            .bg-white.py-8.px-6.shadow
+                if error
+                    p.text-xl.font-bold.text-center.my-10.text-red-600= error
+                else 
+                    p.text-xl.font-bold.text-center.my-10.text-green-600= message
 
-        if confirm
-            .mx-auto.text-center
-                a(href="/login" class="mx-auto text-center font-bold uppercase text-gray-100 mt-10 text-sm px-5 py-3 rounded-md bg-gray-700 hover:bg-transparent hover:text-gray-700 hover:border hover:border-gray-700") Log in here
+                if confirm
+                    .mx-auto.text-center.my-10
+                        a(href="/login" class="w-100 block text-center font-bold text-white my-10 uppercase text-sm px-5 py-3 bg-indigo-600 hover:bg-indigo-700") login
