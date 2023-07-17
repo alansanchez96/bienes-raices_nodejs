@@ -1,5 +1,5 @@
 import { body, validationResult } from 'express-validator';
-import User from '../../Models/User.js';
+import User from '../../../Models/User.js';
 
 const validateRegister = [
     body('name').notEmpty().withMessage('Name is required.')
@@ -32,7 +32,7 @@ const registerRequest = async (req, res, next) => {
         if (!errors.isEmpty()) {
             const extractedErrors = errors.array();
 
-            return res.render('auth/register', {
+            return res.status(422).render('auth/register', {
                 title: 'Register your account',
                 errors: extractedErrors,
                 csrfToken: req.csrfToken(),
@@ -50,7 +50,7 @@ const registerRequest = async (req, res, next) => {
 
         next();
     } catch (error) {
-        res.status(400).render('auth/register', {
+        res.status(422).render('auth/register', {
             title: 'Register your account',
             csrfToken: req.csrfToken(),
             errors: [{ msg: error.message }],

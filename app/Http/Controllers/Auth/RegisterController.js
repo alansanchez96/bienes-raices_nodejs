@@ -41,7 +41,7 @@ const confirmAccount = async (req, res, next) => {
     try {
         const { token } = req.query;
 
-        if (!token) res.redirect('/');
+        if (!token) res.redirect(303, '/');
 
         const user = await User.findOne({ where: { token } });
 
