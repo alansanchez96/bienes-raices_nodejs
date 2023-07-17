@@ -1,7 +1,6 @@
 import { Sequelize } from "sequelize";
 import dotenv from './dotenv.js';
 
-
 const db = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
@@ -16,5 +15,13 @@ const db = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.e
         idle: 10000
     }
 });
+
+try {
+    await db.authenticate();
+    db.sync();
+    console.log('conection ok');
+} catch (error) {
+    console.log(error)
+}
 
 export default db;

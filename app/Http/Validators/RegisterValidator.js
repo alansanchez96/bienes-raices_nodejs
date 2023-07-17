@@ -26,36 +26,40 @@ const registerRequest = async (req, res, next) => {
 
     const { name, lastname, email } = req.body
 
-    const errors = validationResult(req);
+    try {
+        const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-        const extractedErrors = errors.array();
+        if (!errors.isEmpty()) {
+            const extractedErrors = errors.array();
 
-        return res.render('auth/register', {
+            return res.render('auth/register', {
+                title: 'Register your account',
+                errors: extractedErrors,
+                csrfToken: req.csrfToken(),
+                user: {
+                    name: name,
+                    lastname: lastname,
+                    email: email
+                }
+            })
+        }
+
+        const user = await User.findOne({ where: { email } });
+
+        if (user) throw Error('Email is already exists');
+
+        next();
+    } catch (error) {
+        res.status(400).render('auth/register', {
             title: 'Register your account',
-            errors: extractedErrors,
-            user: {
-                name: name,
-                lastname: lastname,
-                email: email
-            }
-        })
-    }
-
-    const user = await User.findOne({ where: { email } });
-
-    if (user) {
-        return res.render('auth/register', {
-            title: 'Register your account',
-            errors: [{ msg: 'Email is already exists' }],
+            csrfToken: req.csrfToken(),
+            errors: [{ msg: error.message }],
             user: {
                 name: name,
                 lastname: lastname
             }
         })
     }
-
-    next();
 }
 
 export {

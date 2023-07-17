@@ -1,6 +1,6 @@
 import express from "express";
 import { viewLogin } from '../app/Http/Controllers/Auth/LoginController.js';
-import { viewRegister, register } from '../app/Http/Controllers/Auth/RegisterController.js';
+import { viewRegister, register, confirmAccount } from '../app/Http/Controllers/Auth/RegisterController.js';
 import { viewForgotPassword } from '../app/Http/Controllers/Auth/PasswordController.js';
 import { validateRegister, registerRequest } from '../app/Http/Validators/RegisterValidator.js';
 
@@ -10,6 +10,8 @@ router.get('/login', viewLogin);
 
 router.get('/register', viewRegister);
 router.post('/register', validateRegister, registerRequest, register);
+
+router.get('/confirm', confirmAccount);
 
 router.get('/forgot-password', viewForgotPassword);
 

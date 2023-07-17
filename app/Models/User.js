@@ -7,6 +7,10 @@ const User = db.define('users', {
         type: DataTypes.STRING(60),
         allowNull: false
     },
+    lastname: {
+        type: DataTypes.STRING(60),
+        allowNull: false
+    },
     email: {
         type: DataTypes.STRING,
         allowNull: false
