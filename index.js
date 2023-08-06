@@ -1,5 +1,6 @@
 import express from 'express';
 import auth from './routes/auth.js';
+import properties from './routes/properties.js';
 import db from './config/database.js';
 import dotenv from './config/dotenv.js';
 import csrf from 'csurf';
@@ -20,7 +21,7 @@ app.set('views', './resources/views')
 app.use(express.static('public'))
 
 // Global Routing
-app.use('/', auth)
+app.use('/', auth, properties)
 
 const port = process.env.APP_PORT || 8080;
 
