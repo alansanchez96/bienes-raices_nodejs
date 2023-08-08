@@ -1,8 +1,7 @@
 import categories from "./CategorySeeder.js";
 import prices from "./PriceSeeder.js";
-import Category from "../Models/Category.js";
-import Price from "../Models/Price.js";
 import db from "../../config/database.js";
+import { Category, Price } from "../Models/Associations.js";
 
 const execSeed = async () => {
     try {
