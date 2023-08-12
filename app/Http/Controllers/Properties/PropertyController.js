@@ -1,5 +1,4 @@
-import Category from "../../../Models/Category.js";
-import Price from "../../../Models/Price.js";
+import { Category, Price, Property } from '../../../Models/Associations.js';
 
 const index = (req, res) => {
     res.status(200).render('properties/index', {
@@ -16,20 +15,57 @@ const create = async (req, res) => {
         res.status(500).render('properties/create', {
             title: 'Post a new property',
             header: true,
-            errors: [{ msg: 'An error has occurred' }]
+            csrfToken: req.csrfToken(),
+            errors: [{ msg: 'An error has occurred' }],
+            data: {}
         });
     });
 
     res.status(200).render('properties/create', {
         title: 'Post a new property',
         header: true,
+        csrfToken: req.csrfToken(),
         categories,
-        prices
+        prices,
+        data: {}
     });
+
+}
+
+const store = async (req, res) => {
+
+    const { title, description, category_id: categoryId, price_id: priceId, rooms, parking, wc, street, lat, lng } = req.body;
+
+    const { id: userId } = req.user;
+
+    try {
+        const property = await Property.create({
+            title,
+            description,
+            categoryId,
+            priceId,
+            rooms,
+            parking,
+            wc,
+            street,
+            lat,
+            lng,
+            userId,
+            image: ''
+        });
+
+        const { id } = property;
+
+        return res.redirect(303, `/properties/add-image/${id}`)
+
+    } catch (error) {
+
+    }
 
 }
 
 export {
     index,
-    create
+    create,
+    store
 }

@@ -1,7 +1,8 @@
 import categories from "./CategorySeeder.js";
 import prices from "./PriceSeeder.js";
+import users from "./UserSeeder.js";
 import db from "../../config/database.js";
-import { Category, Price } from "../Models/Associations.js";
+import { Category, Price, User } from "../Models/Associations.js";
 
 const execSeed = async () => {
     try {
@@ -11,7 +12,8 @@ const execSeed = async () => {
 
         await Promise.all([
             Category.bulkCreate(categories),
-            Price.bulkCreate(prices)
+            Price.bulkCreate(prices),
+            User.bulkCreate(users)
         ])
 
         console.log('Exec Seeds...');

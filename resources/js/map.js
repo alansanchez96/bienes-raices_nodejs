@@ -1,6 +1,6 @@
 (function () {
-    let lat = -34.60374120522355;
-    let lng = -58.38156419904497;
+    let lat = document.querySelector('#lat').value || -34.60374120522355;
+    let lng = document.querySelector('#lng').value || -58.38156419904497;
     let marker;
 
     // Carga la vista inicial del mapa
