@@ -27,7 +27,6 @@ const propertyCreateRequest = async (req, res, next) => {
         ]).catch(() => {
             res.status(500).render('properties/create', {
                 title: 'Post a new property',
-                header: true,
                 csrfToken: req.csrfToken(),
                 errors: [{ msg: 'An error has occurred' }]
             });
@@ -35,7 +34,6 @@ const propertyCreateRequest = async (req, res, next) => {
 
         return res.status(422).render('properties/create', {
             title: 'Post a new property',
-            header: true,
             csrfToken: req.csrfToken(),
             categories,
             prices,

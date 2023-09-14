@@ -2,8 +2,7 @@ import { Category, Price, Property } from '../../../Models/Associations.js';
 
 const index = (req, res) => {
     res.status(200).render('properties/index', {
-        title: 'My properties',
-        header: true
+        title: 'My properties'
     })
 }
 
@@ -14,7 +13,6 @@ const create = async (req, res) => {
     ]).catch(() => {
         res.status(500).render('properties/create', {
             title: 'Post a new property',
-            header: true,
             csrfToken: req.csrfToken(),
             errors: [{ msg: 'An error has occurred' }],
             data: {}
@@ -23,7 +21,6 @@ const create = async (req, res) => {
 
     res.status(200).render('properties/create', {
         title: 'Post a new property',
-        header: true,
         csrfToken: req.csrfToken(),
         categories,
         prices,
@@ -34,7 +31,7 @@ const create = async (req, res) => {
 
 const store = async (req, res) => {
 
-    const { title, description, category_id: categoryId, price_id: priceId, rooms, parking, wc, street, lat, lng } = req.body;
+    const { title, description, category_id: categoryId, price_id: priceId, rooms, parking, wc, street, lat: latitude, lng: longitude } = req.body;
 
     const { id: userId } = req.user;
 
@@ -48,15 +45,15 @@ const store = async (req, res) => {
             parking,
             wc,
             street,
-            lat,
-            lng,
+            latitude,
+            longitude,
             userId,
             image: ''
         });
 
         const { id } = property;
 
-        return res.redirect(303, `/properties/add-image/${id}`)
+        return res.redirect(`/properties/add-image/${id}`)
 
     } catch (error) {
 
@@ -64,8 +61,15 @@ const store = async (req, res) => {
 
 }
 
+const addImage = async (req, res) => {
+    res.render('properties/add-image', {
+        title: 'Add images'
+    });
+}
+
 export {
     index,
     create,
-    store
+    store,
+    addImage
 }
